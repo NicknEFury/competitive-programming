@@ -14,9 +14,6 @@
 
 using namespace std;
 
-#include <vector>
-using namespace std;
-
 vector<int> cycle_sort(vector<int> vec, int n) {
   for (int cycleStart = 0; cycleStart < n - 1; cycleStart++) {
     int item = vec[cycleStart];
