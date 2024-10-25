@@ -16,43 +16,46 @@
 using namespace std;
 
 vector<int> strand_sort(vector<int> arr) {
-  vector<int> output;
+    vector<int> output;
 
-  while (!arr.empty()) {
-    vector<int> sublist;
-    sublist.push_back(arr[0]);
-    arr.erase(arr.begin());
+    while (!arr.empty()) {
+        vector<int> sublist;
+        sublist.push_back(arr[0]);
+        arr.erase(arr.begin());
 
-    for (auto it = arr.begin(); it != arr.end();) {
-      if (*it > sublist.back()) {
-        sublist.push_back(*it);
-        it = arr.erase(it);
-      } else {
-        it++;
-      }
+        for (auto it = arr.begin(); it != arr.end();) {
+            if (*it > sublist.back()) {
+                sublist.push_back(*it);
+                it = arr.erase(it);
+            }
+            else {
+                it++;
+            }
+        }
+
+        output.insert(output.end(), sublist.begin(), sublist.end());
+        inplace_merge(output.begin(), output.end() - sublist.size(), output.end());
     }
 
-    output.insert(output.end(), sublist.begin(), sublist.end());
-  }
-
-  return output;
+    return output;
 }
+
 int main() {
-  int n;
-  cin >> n;
-  vector<int> P(n);
+    int n;
+    cin >> n;
+    vector<int> P(n);
 
-  for (int i = 0; i < n; i++) {
-    cin >> P[i];
-  }
+    for (int i = 0; i < n; i++) {
+        cin >> P[i];
+    }
 
-  vector<int> P1 = strand_sort(P);
+    vector<int> P1 = strand_sort(P);
 
-  for (int i = 0; i < n; i++) {
-    cout << P1[i];
-  }
+    for (int i = 0; i < n; i++) {
+        cout << P1[i];
+    }
 
-  return 0;
+    return 0;
 }
 
 // Лучшее время: O(n log n)
