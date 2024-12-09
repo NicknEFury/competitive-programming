@@ -1,6 +1,5 @@
 #include <iostream>
 #include <vector>
-#include <memory>
 
 using namespace std;
 
@@ -9,42 +8,44 @@ using namespace std;
 class TreeNode {
 public:
     int value;
-    unique_ptr<TreeNode> left;
-    unique_ptr<TreeNode> right;
+    TreeNode* left;
+    TreeNode* right;
 
     TreeNode(int val) : value(val), left(nullptr), right(nullptr) {}
 };
 
 class BinaryTree {
 public:
-    unique_ptr<TreeNode> root;
+    TreeNode* root;
+
+    BinaryTree() : root(nullptr) {}
 
     void insert(int value) {
-        root = insertHelper(move(root), value);
+        root = insertHelper(root, value);
     }
 
     void inOrderTraversal(vector<int>& sortedArray) {
-        inOrderHelper(root.get(), sortedArray);
+        inOrderHelper(root, sortedArray);
     }
 
 private:
-    unique_ptr<TreeNode> insertHelper(unique_ptr<TreeNode> node, int value) {
+    TreeNode* insertHelper(TreeNode* node, int value) {
         if (!node) {
-            return make_unique<TreeNode>(value);
+            return new TreeNode(value);
         }
         if (value < node->value) {
-            node->left = insertHelper(move(node->left), value);
+            node->left = insertHelper(node->left, value);
         } else {
-            node->right = insertHelper(move(node->right), value);
+            node->right = insertHelper(node->right, value);
         }
-        return move(node);
+        return node;
     }
 
     void inOrderHelper(TreeNode* node, vector<int>& sortedArray) {
         if (!node) return;
-        inOrderHelper(node->left.get(), sortedArray);
+        inOrderHelper(node->left, sortedArray);
         sortedArray.push_back(node->value);
-        inOrderHelper(node->right.get(), sortedArray);
+        inOrderHelper(node->right, sortedArray);
     }
 };
 
@@ -61,17 +62,17 @@ vector<int> treeSort(vector<int>& array) {
 
 int main() {
     int n;
-    cin >> n;
+    cin >> n; // Ввод размера массива
     vector<int> P(n);
 
     for (int i = 0; i < n; i++) {
-        cin >> P[i];
+        cin >> P[i]; // Ввод элементов массива
     }
 
-    vector<int> sortedArray = treeSort(P);
+    vector<int> sortedArray = treeSort(P); // Применение сортировки с помощью бинарного дерева
 
     for (int i = 0; i < sortedArray.size(); i++) {
-        cout << sortedArray[i] << " "; 
+        cout << sortedArray[i] << " "; // Вывод отсортированного массива
     }
     cout << endl;
 
@@ -82,6 +83,6 @@ int main() {
 // В лучшем случае: O(n)
 // В среднем: O(n log n)
 // В худшем: O(n log n)
-// Память: O(n)
-// Устойчивость: Да
+// Память: O(n) — для хранения узлов дерева
+// Устойчивость: Да (сохраняет относительный порядок равных элементов)
 // Обмены: O(n)
