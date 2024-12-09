@@ -72,10 +72,10 @@ int main() {
     cin >> P[i];
   }
 
-  vector<int> P1 = mergeSort(P, 0, n-1);
+  mergeSort(P, 0, n-1);
 
   for (int i = 0; i < n; i++) {
-    cout << P1[i];
+    cout << P[i] << " ";
   }
 
   return 0;
