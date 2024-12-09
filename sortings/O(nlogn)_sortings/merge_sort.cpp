@@ -10,10 +10,7 @@ using namespace std;
 // 3. Объедините отсортированные подмассивы вместе, чтобы создать один полностью отсортированный массив. 
 // Это достигается путем сравнения элементов двух подмассивов и их объединения в порядке возрастания.
 // 4. Объединенный результат представляет собой отсортированный массив.
-// Сложность алгоритма:
-// В лучшем случае: O(n log n)
-// В среднем: O(n log n)
-// В худшем: O(n log n)
+
 
 void merge(vector<int>& array, int left, int mid, int right) {
     int n1 = mid - left + 1;
@@ -66,22 +63,28 @@ void mergeSort(vector<int>& array, int left, int right) {
     }
 }
 
-void printArray(const vector<int>& array) {
-    for (int i : array)
-        cout << i << " ";
-    cout << endl;
-}
-
 int main() {
-    vector<int> array = {38, 27, 43, 3, 9, 82, 10};
-    
-    cout << "Исходный массив: ";
-    printArray(array);
+  int n;
+  cin >> n;
+  vector<int> P(n);
 
-    mergeSort(array, 0, array.size() - 1);
+  for (int i = 0; i < n; i++) {
+    cin >> P[i];
+  }
 
-    cout << "Отсортированный массив: ";
-    printArray(array);
+  vector<int> P1 = mergeSort(P, 0, n-1);
 
-    return 0;
+  for (int i = 0; i < n; i++) {
+    cout << P1[i];
+  }
+
+  return 0;
 }
+
+// Сложность алгоритма:
+// В лучшем случае: O(n log n)
+// В среднем: O(n log n)
+// В худшем: O(n log n)
+// Память: O(n)
+// Устойчивость: Да
+// Обмены (в среднем): O(n)
