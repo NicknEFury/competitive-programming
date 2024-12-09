@@ -39,7 +39,6 @@ int main() {
 
     combSort(P); 
 
-    cout << "Отсортированный массив: ";
     for (int i = 0; i < n; i++) {
         cout << P[i] << " ";
     }
