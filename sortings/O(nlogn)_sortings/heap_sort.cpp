@@ -9,51 +9,49 @@ using namespace std;
 // 3. После каждой замены уменьшите размер кучи на единицу и убедитесь, что свойство max-heap сохраняется для остальных элементов.
 // 4. Повторяйте этот процесс, пока весь массив не будет отсортирован.
 
-void heapify(vector<int>& array, int n, int i) {
-    int largest = i; 
-    int left = 2 * i + 1;
-    int right = 2 * i + 2;
+void heapify(vector<int>& arr, int n, int i) {
+    int largest = i;
+    int l = 2 * i + 1;
+    int r = 2 * i + 2;
 
-    if (left < n && array[left] > array[largest])
-        largest = left;
+    if (l < n && arr[l] > arr[largest])
+        largest = l;
 
-    if (right < n && array[right] > array[largest])
-        largest = right;
+    if (r < n && arr[r] > arr[largest])
+        largest = r;
 
     if (largest != i) {
-        swap(array[i], array[largest]);
+        swap(arr[i], arr[largest]);
 
-        heapify(array, n, largest);
+        heapify(arr, n, largest);
     }
 }
 
-void heapSort(vector<int>& array) {
-    int n = array.size();
+void heapSort(vector<int>& arr, int n) {
 
     for (int i = n / 2 - 1; i >= 0; i--)
-        heapify(array, n, i);
+        heapify(arr, n, i);
 
     for (int i = n - 1; i > 0; i--) {
-        swap(array[0], array[i]);
-        heapify(array, i, 0);
+        swap(arr[0], arr[i]);
+        heapify(arr, i, 0);
     }
 }
 
 int main() {
     int n;
-    cin >> n; 
-    vector<int> P(n);
+    cin >> n;
+    vector<int> arr(n);
 
     for (int i = 0; i < n; i++) {
-        cin >> P[i]; 
+        cin >> arr[i];
     }
 
-    heapSort(P); 
+    heapSort(arr, n);
 
     for (int i = 0; i < n; i++) {
-        cout << P[i] << " "; 
+        cout << arr[i] << " ";
     }
-    cout << endl;
 
     return 0;
 }
